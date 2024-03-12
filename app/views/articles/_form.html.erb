@@ -5,10 +5,10 @@
 
   <div class="form-inputs">
     <%= f.input :title %>
-    <%= f.input :url %>
+    <%= f.input :document, as: :file %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.submit "Analyze Text" %>
   </div>
 <% end %>
