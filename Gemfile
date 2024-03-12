@@ -29,6 +29,8 @@ gem "stimulus-rails"
 # OpenAi
 gem "ruby-openai"
 
+gem "pdf-reader"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

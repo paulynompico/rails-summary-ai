@@ -7,8 +7,13 @@
   <iframe src="<%= rails_blob_path(article.document, disposition: :inline) %>" height="200" width="300"></iframe>
 
   <p>
-    <strong>Key Information:</strong>
-    <%= article.content %>
+    <strong>Pages:</strong>
+    <%= article.pages %>
+  </p>
+
+  <p>
+    <strong>Info:</strong>
+    <%= article.info %>
   </p>
 
 </div>
