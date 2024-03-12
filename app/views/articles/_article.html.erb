@@ -13,13 +13,17 @@
 
   <p>
     <strong>Key Info:</strong>
-    <% lines = article.info.split(/\d\./) %>
-    <% lines.shift %>
+    <% lines = article.info.split("\n") %>
     <ul>
       <% lines.each do |line| %>
         <li><%= line %></li>
       <% end %>
     </ul>
+  </p>
+
+  <p>
+    <strong>Summary:</strong>
+    <%= article.summary %>
   </p>
 
 </div>
