@@ -5,17 +5,9 @@ require 'pdf-reader'
 class Article < ApplicationRecord
   has_one_attached :document
 
-  def content(i)
-    client = OpenAI::Client.new
-    chaptgpt_response = client.chat(parameters: {
-      model: "gpt-3.5-turbo",
-      messages: [{ role: "user", content: "Summarize #{i}"}]
-    })
-    return chaptgpt_response["choices"][0]["message"]["content"]
-  end
-
   def pages
-    reader = PDF::Reader.new("app/assets/images/shark.pdf")
+    io = ActiveStorage::Blob.service.path_for(document.key)
+    reader = PDF::Reader.new(io)
     return reader.page_count
 
   #   # puts reader.pdf_version
@@ -25,7 +17,8 @@ class Article < ApplicationRecord
   end
 
   def info
-    reader = PDF::Reader.new("app/assets/images/shark.pdf")
+    io = ActiveStorage::Blob.service.path_for(document.key)
+    reader = PDF::Reader.new(io)
     i = reader.page(4).text.to_s
     client = OpenAI::Client.new
     chaptgpt_response = client.chat(parameters: {
