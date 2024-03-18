@@ -1,14 +1,14 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Articles</h1>
+<h1>Files</h1>
 
 <div id="articles">
   <% @articles.each do |article| %>
     <%= article.title %>
     <p>
-      <%= link_to "Show this article", article %>
+      <%= link_to "Show the analysis of this file", article %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New article", new_article_path %>
+<%= link_to "Upload new file", new_article_path %>

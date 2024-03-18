@@ -56,4 +56,27 @@ class Article < ApplicationRecord
     })
     return chaptgpt_response["choices"][0]["message"]["content"]
   end
+
+  def conclusion
+    io = ActiveStorage::Blob.service.path_for(document.key)
+    reader = PDF::Reader.new(io)
+    i = ""
+    if reader.page_count >= 10 
+      i += reader.page(4).text.to_s
+      i += reader.page(5).text.to_s
+      i += reader.page(7).text.to_s
+      i += reader.page(8).text.to_s
+      i += reader.page(9).text.to_s
+    else
+      reader.pages.each do |page|
+        i += page.text.to_s
+      end
+    end
+    client = OpenAI::Client.new
+    chaptgpt_response = client.chat(parameters: {
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: "What is the main conclusion based on the following text: #{i}. Limit to 2 sentences and do not add opinions."}]
+    })
+    return chaptgpt_response["choices"][0]["message"]["content"]
+  end
 end
